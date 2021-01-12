@@ -10,8 +10,12 @@ const routes = [
   {
     path: '/msite',
     name: 'Msite',
+    meta:{
+      temp:'临时信息'
+    },
     component: () => import('../pages/Msite/Msite')
-  }, {
+  },
+  {
     path: '/search',
     name: 'Search',
     component: () => import('../pages/Search/Search')
@@ -27,8 +31,13 @@ const routes = [
     component: () => import('../pages/Profile/Profile')
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../pages/Login/Login')
+  },
+  {
     path: '/',
-    redirect:'/msite'//设置默认重定向路径
+    redirect: '/msite'//设置默认重定向路径
   }
 ]
 //向外默认暴露一个路由器对象

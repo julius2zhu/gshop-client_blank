@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <router-view/>
-    <FooterGuide/>
+    <FooterGuide
+      v-if="$route.path==='/msite'||$route.path==='/search'
+    ||$route.path==='/order'||$route.path==='/profile'"/>
   </div>
 </template>
 
@@ -14,7 +16,7 @@
   }
 </script>
 
-<style lang="stylus"  rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
   .app
     width 100%
     height 100%
