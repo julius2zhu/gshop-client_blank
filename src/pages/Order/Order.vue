@@ -1,10 +1,6 @@
 <template>
   <section class="order">
-    <header class="header">
-      <a class="header_title">
-        <span class="header_title_text">订单列表</span>
-      </a>
-    </header>
+    <HeaderTop :title="title"/>
     <section class="order_no_login">
       <img src="./images/person.png">
       <h3>登录后查看外卖订单</h3>
@@ -14,7 +10,16 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    data () {
+      return {
+        title: '订单列表'
+      }
+    },
+    components: {
+      HeaderTop: () => import('../../components/HeaderTop/HeaderTop')
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

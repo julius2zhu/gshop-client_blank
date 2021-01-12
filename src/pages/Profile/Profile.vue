@@ -1,10 +1,6 @@
 <template>
   <section class="profile">
-    <header class="header">
-      <a class="header_title">
-        <span class="header_title_text">我的</span>
-      </a>
-    </header>
+    <HeaderTop :title="title"/>
     <section class="profile-number">
       <a href="javascript:" class="profile-link">
         <div class="profile_image">
@@ -96,7 +92,16 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    data () {
+      return {
+        title: '我的'
+      }
+    },
+    components: {
+      HeaderTop: () => import('../../components/HeaderTop/HeaderTop')
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

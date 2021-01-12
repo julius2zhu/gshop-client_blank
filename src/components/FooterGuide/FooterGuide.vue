@@ -1,4 +1,5 @@
 <template>
+  <!--底部导航组件-->
   <div class="footer_guide">
     <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/msite'}" @click="goto('/msite')">
       <span class="item_icon">
