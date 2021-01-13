@@ -2,7 +2,7 @@
   <section class="profile">
     <HeaderTop :title="title"/>
     <section class="profile-number">
-      <router-link to="/login"  class="profile-link">
+      <router-link to="/login" class="profile-link">
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
@@ -92,11 +92,25 @@
 </template>
 
 <script>
+  import {login, getPosition} from '../../api/api'
+
   export default {
     data () {
       return {
         title: '我的'
       }
+    },
+    mounted () {
+      // login().then(resp=>{
+      //   console.log(resp)
+      // }).catch(error=>{
+      //   console.log(error)
+      // })
+      getPosition('/40.10038,116.36867').then(resp => {
+        console.log(resp)
+      }).catch(error=>{
+        console.log(error)
+      })
     },
     components: {
       HeaderTop: () => import('../../components/HeaderTop/HeaderTop')
