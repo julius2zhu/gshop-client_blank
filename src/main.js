@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 //引入路由
 import router from './router/index'
+import store from './store/index'
 
 Vue.config.productionTip = false
 
@@ -11,5 +12,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

@@ -8,8 +8,18 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+
   export default {
     name: 'App',
+    mounted () {
+      //this.$store.dispatch('actionAddress')
+      //两种方式均可,别人写的要能看懂
+      this.actionAddress()
+    },
+    methods: {
+      ...mapActions(['actionAddress'])
+    },
     components: {
       FooterGuide: () => import('./components/FooterGuide/FooterGuide')
     }

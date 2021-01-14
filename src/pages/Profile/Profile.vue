@@ -92,25 +92,11 @@
 </template>
 
 <script>
-  import {login, getPosition} from '../../api/api'
-
   export default {
     data () {
       return {
         title: '我的'
       }
-    },
-    mounted () {
-      // login().then(resp=>{
-      //   console.log(resp)
-      // }).catch(error=>{
-      //   console.log(error)
-      // })
-      getPosition('/40.10038,116.36867').then(resp => {
-        console.log(resp)
-      }).catch(error=>{
-        console.log(error)
-      })
     },
     components: {
       HeaderTop: () => import('../../components/HeaderTop/HeaderTop')

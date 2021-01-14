@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
     <!--首页头部-->
-    <HeaderTop :title="title">
+    <HeaderTop :title="address.data.name">
         <span class="header_search" slot="left">
             <i class="iconfont icon-sousuo"></i>
           </span>
@@ -130,12 +130,20 @@
 <script>
   import Swiper from 'swiper'
   import 'swiper/swiper-bundle.min.css'
+  import {mapState} from 'vuex'
 
   export default {
     data () {
       return {
-        title: '昌平区北七家宏福科技园(337省道北)'
+        // title: '昌平区北七家宏福科技园(337省道北)'
       }
+    },
+    computed: {
+      //该种方式也是可以的
+      // address () {
+      //   return this.$store.state.address
+      // },
+      ...mapState(['address'])
     },
     mounted () {
       new Swiper('.swiper-container', {
