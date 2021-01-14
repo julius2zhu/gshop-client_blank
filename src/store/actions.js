@@ -11,24 +11,44 @@ import {
 } from '../api/api'
 
 export default {
+  /**
+   * 获取地址信息
+   * @param commit
+   * @param state
+   * @returns {Promise<void>}
+   */
   async actionAddress ({commit, state}) {
     //发送异步请求
     const geohash = '/' + state.latitude + ',' + state.longitude
-    const address = await getAddress(geohash)
-    //通知state更新状态
-    commit(RECEIVE_ADDRESS, {address})
+    const response = await getAddress(geohash)
+    if (response.code === 0) {
+      const address = response.data
+      //通知state更新状态,对象名称必须是address
+      commit(RECEIVE_ADDRESS, {address})
+    }
   },
+  /**
+   * 获取首页食品分类信息
+   * @param commit
+   * @returns {Promise<void>}
+   */
   async actionIndexCategory ({commit}) {
     //发送异步请求
-    const categorys = await getIndexCategory()
+    const result = await getIndexCategory()
     //通知state更新状态
-    commit(RECEIVE_CATEGORYS, {categorys})
+    commit(RECEIVE_CATEGORYS, {categorys: result.data})
   },
+  /**
+   * 获取商家信息
+   * @param commit
+   * @param state
+   * @returns {Promise<void>}
+   */
   async actionShops ({commit, state}) {
     const {latitude, longitude} = state
     //发送异步请求
-    const shops = await getShops({latitude, longitude})
+    const result = await getShops({latitude, longitude})
     //通知state更新状态
-    commit(RECEIVE_SHOPS, {shops})
-  },
+    commit(RECEIVE_SHOPS, {shops: result.data})
+  }
 }
