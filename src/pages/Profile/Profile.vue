@@ -88,11 +88,15 @@
         </div>
       </a>
     </section>
+    <van-button type="danger" size="large" v-if="userInfo._id" @click="logout">
+      退出登录
+    </van-button>
   </section>
 </template>
 
 <script>
   import {mapState} from 'vuex'
+  import {Dialog} from 'vant'
 
   export default {
     data () {
@@ -102,6 +106,22 @@
     },
     computed: {
       ...mapState(['userInfo'])
+    },
+    methods: {
+      /**
+       * 注销操作
+       */
+      logout () {
+        const that = this
+        Dialog.confirm({
+          title: '提示',
+          message: '确认退出登录吗?',
+        }).then(() => {
+          that.$store.dispatch('actionRestCurrentUserInfo')
+        }).catch(()=>{
+          //没有实际作用,只是去除控制台警告
+        })
+      }
     },
     components: {
       HeaderTop: () => import('../../components/HeaderTop/HeaderTop')

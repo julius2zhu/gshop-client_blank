@@ -6,6 +6,12 @@ import App from './App'
 import router from './router/index'
 import store from './store/index'
 
+import {Button, Dialog} from 'vant'
+import 'vant/lib/button/style'
+import 'vant/lib/dialog/style'
+
+Vue.use(Button)
+Vue.use(Dialog)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

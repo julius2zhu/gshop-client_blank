@@ -5,10 +5,12 @@ import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
-  RECEIVE_USER_INFO
+  RECEIVE_USER_INFO,
+  RESET_USER_INFO
 } from './mutation_types'
 import {
-  getAddress, getIndexCategory, getShops
+  getAddress, getIndexCategory, getShops, getUserInfo,
+  logout
 } from '../api/api'
 
 export default {
@@ -60,6 +62,29 @@ export default {
    */
   actionUserInfo ({commit, state}, userInfo) {
     commit(RECEIVE_USER_INFO, {userInfo})
+  },
+  /**
+   * 获取当前登录用户的会话信息
+   * @param commit
+   * @param state
+   * @param userInfo
+   */
+  async actionGetCurrentUserInfo ({commit, state}) {
+    const result = await getUserInfo()
+    if (result.code === 0) {
+      commit(RECEIVE_USER_INFO, {userInfo: result.data})
+    }
+  },
+  /**
+   * 重置当前登录用户信息
+   * @param commit
+   * @param state
+   * @returns {Promise<void>}
+   */
+  async actionRestCurrentUserInfo ({commit, state}) {
+    const result = await logout()
+    if (result.code === 0) {
+      commit(RESET_USER_INFO)
+    }
   }
-
 }

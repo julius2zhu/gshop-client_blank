@@ -8,9 +8,6 @@
 </template>
 
 <script>
-  // import {mapActions} from 'vuex'
-
-  import Swiper from 'swiper'
   import {mapActions} from 'vuex'
 
   export default {
@@ -19,9 +16,10 @@
       // this.$store.dispatch('actionAddress')
       //两种方式均可,别人写的要能看懂
       this.actionAddress()
+      this.actionGetCurrentUserInfo()
     },
     methods: {
-      ...mapActions(['actionAddress'])
+      ...mapActions(['actionAddress', 'actionGetCurrentUserInfo'])
     },
     components: {
       FooterGuide: () => import('./components/FooterGuide/FooterGuide')
