@@ -5,7 +5,8 @@ import App from './App'
 //引入路由
 import router from './router/index'
 import store from './store/index'
-
+//引入mockjs数据，只需要加载一次即可，例如一些css样式文件
+import './mock/mockServer'
 import {Button, Dialog} from 'vant'
 import 'vant/lib/button/style'
 import 'vant/lib/dialog/style'

@@ -6,11 +6,14 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
   RECEIVE_USER_INFO,
-  RESET_USER_INFO
+  RESET_USER_INFO,
+  RECEIVE_INFO,
+  RECEIVE_GOODS,
+  RECEIVE_RATINGS
 } from './mutation_types'
 import {
   getAddress, getIndexCategory, getShops, getUserInfo,
-  logout
+  logout, mockGetGoods, mockGetInfo, mockGetRatings
 } from '../api/api'
 
 export default {
@@ -85,6 +88,31 @@ export default {
     const result = await logout()
     if (result.code === 0) {
       commit(RESET_USER_INFO)
+    }
+  },
+  async actionShopInfo ({commit}) {
+    const result = await mockGetInfo()
+    if (result.code === 0) {
+      const info = result.data
+      info.score = 3.5
+      commit(RECEIVE_INFO, {info})
+    }
+  },
+  // 异步获取商家评价列表
+  async actionShopRatings ({commit}) {
+    const result = await mockGetRatings()
+    if (result.code === 0) {
+      const ratings = result.data
+      commit(RECEIVE_RATINGS, {ratings})
+    }
+  },
+  // 异步获取商家商品列表
+  async actionShopGoods ({commit}) {
+    const result = await mockGetGoods()
+    if (result.code === 0) {
+      const goods = result.data
+      commit(RECEIVE_GOODS, {goods})
+      // 如果组件中传递了接收消息的回调函数, 数据更新后, 调用回调通知调用的组件
     }
   }
 }

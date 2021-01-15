@@ -1,5 +1,6 @@
 /*所有的网络请求*/
 import instance from './index'
+import {mockJsInstance} from './index'
 
 /**
  * 获取位置信息
@@ -48,6 +49,11 @@ export const getUserInfo = () => instance.get('/userinfo')
  */
 export const logout = () => instance.get('/logout')
 
-
-
+/**
+ * 通过mock模拟数据获取goods数据
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+export const mockGetGoods = () => mockJsInstance.get('/goods')
+export const mockGetRatings = () => mockJsInstance.get('/ratings')
+export const mockGetInfo = () => mockJsInstance.get('/info')
 

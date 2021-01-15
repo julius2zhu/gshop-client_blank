@@ -23,3 +23,14 @@ instance.interceptors.response.use(response => {
 
 /*对外默认暴露出去*/
 export default instance
+/*专门为mockJs创建的ajax请求*/
+export const mockJsInstance = axios.create({
+  timeout: 3000
+})
+/*响应拦截器*/
+mockJsInstance.interceptors.response.use(response => {
+  return response.data
+}, error => {
+  return Promise.reject(error)
+})
+

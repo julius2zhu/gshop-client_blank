@@ -7,11 +7,16 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+  //重定向的路径尽量放在前面,否则会不生效
+  {
+    path: '/',
+    redirect: '/msite'//设置默认重定向路径
+  },
   {
     path: '/msite',
     name: 'Msite',
-    meta:{
-      temp:'临时信息'
+    meta: {
+      temp: '临时信息'
     },
     component: () => import('../pages/Msite/Msite')
   },
@@ -36,8 +41,26 @@ const routes = [
     component: () => import('../pages/Login/Login')
   },
   {
-    path: '/',
-    redirect: '/msite'//设置默认重定向路径
+    path: '/shop',
+    redirect: '/shop/goods'
+  },
+  {
+    path: '/shop',
+    component: () => import('../pages/Shop/Shop'),
+    children: [
+      {
+        path: '/shop/goods',
+        component: () => import('../pages/Shop/ShopGoods/ShopGoods')
+      },
+      {
+        path: '/shop/ratings',
+        component: () => import('../pages/Shop/ShopRatings/ShopRatings')
+      },
+      {
+        path: '/shop/info',
+        component: () => import('../pages/Shop/ShopInfo/ShopInfo')
+      }
+    ]
   }
 ]
 //向外默认暴露一个路由器对象
