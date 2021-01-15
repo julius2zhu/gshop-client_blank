@@ -44,7 +44,8 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <img class="get_verification" ref="captcha" src="http://localhost:4000/captcha" alt="captcha"
+                     @click="getCaptcha">
               </section>
             </section>
           </div>
@@ -62,19 +63,20 @@
 <script>
   import Dialog from 'vant/lib/Dialog'
   import 'vant/lib/dialog/style'
+  import {loginByUsername} from '../../api/api'
 
   export default {
     name: 'Login',
     data () {
       return {
         isSelect: true,//默认是短信登录,false为密码登录
-        code: null,//短信验证码
-        phone: null,//手机号
+        code: '',//短信验证码
+        phone: '',//手机号
         computeTime: 0,//倒计时
         showPwd: false,//是否显示密码,默认不显示
-        name: null,//登录用户名
-        pwd: null,//密码
-        captcha: null,//图片验证码
+        name: '',//登录用户名
+        pwd: '',//密码
+        captcha: '',//图片验证码
       }
     },
     computed: {
@@ -84,6 +86,15 @@
       }
     },
     methods: {
+      /**
+       * 动态获图形验证码
+       */
+      getCaptcha () {
+        this.$refs['captcha'].src = 'http://localhost:4000/captcha?time' + Date.now()
+      },
+      /**
+       * 页面跳转
+       */
       back (path) {
         this.$router.replace(path)
       },
@@ -104,7 +115,7 @@
         }
       },
       /**
-       * 登录验证
+       * 前端登录校验
        */
       login () {
         //判断是手机短信验证码还是账号密码
@@ -122,13 +133,34 @@
           //账号密码登录
         } else {
           const {name, pwd, captcha} = this
-          if (name === null) {
+          if (name.length < 1) {
             Dialog({message: '用户名必须指定'})
-          } else if (pwd === null) {
+          } else if (pwd.length < 1) {
             Dialog({message: '密码必须指定'})
-          } else if (captcha === null) {
+          } else if (captcha.length < 1) {
             Dialog({message: '验证码必须输入'})
+          } else {
+            //调用登录请求
+            this.loginByUsername()
           }
+        }
+      },
+      /**
+       * 账号密码登录
+       */
+      async loginByUsername () {
+        const {name, pwd, captcha} = this
+        const result = await loginByUsername({name, pwd, captcha})
+        if (result.code === 0) {
+          const user = result.data
+          //将数据保存到vuex中
+          await this.$store.dispatch('actionUserInfo', user)
+          //去个人中心
+          await this.$router.replace('/profile')
+        } else {
+          //重新获取验证码
+          this.getCaptcha()
+          Dialog({message: result.msg})
         }
       }
     }

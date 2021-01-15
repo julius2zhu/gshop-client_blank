@@ -4,7 +4,8 @@
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  RECEIVE_USER_INFO
 } from './mutation_types'
 import {
   getAddress, getIndexCategory, getShops
@@ -50,5 +51,15 @@ export default {
     const result = await getShops({latitude, longitude})
     //通知state更新状态
     commit(RECEIVE_SHOPS, {shops: result.data})
+  },
+  /**
+   * 同步记录用户信息,不需要再去后台发送请求
+   * @param commit
+   * @param state
+   * @param userInfo
+   */
+  actionUserInfo ({commit, state}, userInfo) {
+    commit(RECEIVE_USER_INFO, {userInfo})
   }
+
 }

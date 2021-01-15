@@ -2,12 +2,15 @@
   <section class="msite">
     <!--首页头部-->
     <HeaderTop :title="address.name">
-        <span class="header_search" slot="left">
-            <i class="iconfont icon-sousuo"></i>
-          </span>
-      <span class="header_login" slot="right">
-            <span class="header_login_text">登录|注册</span>
-          </span>
+      <router-link class="header_search" slot="left" to="/search">
+        <i class="iconfont icon-sousuo"></i>
+      </router-link>
+      <router-link class="header_login" slot="right" :to="userInfo._id ? '/userinfo' : '/login'">
+        <span class="header_login_text">
+           <i class="iconfont icon-person" v-if="userInfo._id"></i>
+          <span v-else>登录|注册</span>
+        </span>
+      </router-link>
     </HeaderTop>
     <!--首页导航-->
     <nav class="msite_nav">
@@ -70,7 +73,7 @@
       // address () {
       //   return this.$store.state.address
       // },
-      ...mapState(['address', 'categorys'])
+      ...mapState(['address', 'categorys', 'userInfo'])
     },
     watch: {
       categorys (val) {
@@ -100,6 +103,10 @@
   @import "../../common/stylus/mixins.styl"
   .msite //首页
     width 100%
+
+    .header_search
+      color white
+      font-weight bold
 
     .msite_nav
       bottom-border-1px(#e4e4e4)
