@@ -9,7 +9,9 @@ import {
   RESET_USER_INFO,
   RECEIVE_INFO,
   RECEIVE_GOODS,
-  RECEIVE_RATINGS
+  RECEIVE_RATINGS,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
 } from './mutation_types'
 import {
   getAddress, getIndexCategory, getShops, getUserInfo,
@@ -90,6 +92,7 @@ export default {
       commit(RESET_USER_INFO)
     }
   },
+  // 异步获取商家头部信息
   async actionShopInfo ({commit}) {
     const result = await mockGetInfo()
     if (result.code === 0) {
@@ -102,17 +105,25 @@ export default {
   async actionShopRatings ({commit}) {
     const result = await mockGetRatings()
     if (result.code === 0) {
-      const ratings = result.data
-      commit(RECEIVE_RATINGS, {ratings})
+      commit(RECEIVE_RATINGS, {ratings: result.data})
     }
   },
   // 异步获取商家商品列表
-  async actionShopGoods ({commit}) {
+  async actionShopGoods ({commit}, fn) {
     const result = await mockGetGoods()
     if (result.code === 0) {
-      const goods = result.data
-      commit(RECEIVE_GOODS, {goods})
-      // 如果组件中传递了接收消息的回调函数, 数据更新后, 调用回调通知调用的组件
+      commit(RECEIVE_GOODS, {goods: result.data})
+      //当调用者没有传递回调函数，此处为undefined
+      //undefined && undefined 还是为undefined,不加这个操作则会出错
+      fn && fn()
+    }
+  },
+  //更新购物车商品数量
+  actionUpdateFoodCount ({commit}, {isAdd, food}) {
+    if (isAdd) {
+      commit(INCREMENT_FOOD_COUNT, {food})
+    } else {
+      commit(DECREMENT_FOOD_COUNT, {food})
     }
   }
 }
