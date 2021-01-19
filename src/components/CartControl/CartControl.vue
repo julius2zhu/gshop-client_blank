@@ -1,11 +1,13 @@
 <template>
+  <!--控制商品的数量加减-->
   <div class="cartcontrol">
     <transition name="move">
+      <!--stop停止事件冒泡,点击内层的div，外层不用做出响应-->
       <div class="iconfont icon-remove_circle_outline" v-if="food.count"
-           @click="updateFoodCount(false)"></div>
+           @click.stop="updateFoodCount(false)"></div>
     </transition>
     <div class="cart-count" v-if="food.count">{{food.count}}</div>
-    <div class="iconfont icon-add_circle" @click="updateFoodCount(true)"></div>
+    <div class="iconfont icon-add_circle" @click.stop="updateFoodCount(true)"></div>
   </div>
 </template>
 
@@ -26,6 +28,7 @@
   @import "../../common/stylus/mixins.styl"
   .cartcontrol
     font-size: 0
+
     .cart-decrease
       display: inline-block
       padding: 6px
@@ -39,11 +42,14 @@
       line-height 24px
       font-size 24px
       color $green
+
       &.move-enter-active, &.move-leave-active
         transition all .3s
+
       &.move-enter, &.move-leave-to
         opacity 0
         transform translateX(15px) rotate(180deg)
+
     .cart-count
       display: inline-block
       vertical-align: top
@@ -53,6 +59,7 @@
       text-align: center
       font-size: 10px
       color: rgb(147, 153, 159)
+
     .icon-add_circle
       display: inline-block
       padding: 6px

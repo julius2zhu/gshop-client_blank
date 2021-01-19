@@ -23,7 +23,8 @@
             <h1 class="title"> {{good.name}}</h1>
             <ul>
               <!--每一个分类里面又有一些商品信息-->
-              <li class="food-item bottom-border-1px" v-for="(food,index) of good.foods" :key="index">
+              <li class="food-item bottom-border-1px" v-for="(food,index) of good.foods" :key="index"
+                  @click="showFoodDetail(food)">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -46,6 +47,8 @@
           </li>
         </ul>
       </div>
+      <!--点击查看详细商品信息-->
+      <Food v-if="isShowFood" :food="food" @closeFoodDetail="closeFoodDetail"/>
     </div>
   </div>
 </template>
@@ -59,7 +62,9 @@
     data () {
       return {
         scrollY: 0,
-        tops: []
+        tops: [],
+        food: {},
+        isShowFood: false
       }
     },
     mounted () {
@@ -98,6 +103,20 @@
       }
     },
     methods: {
+      /**
+       *关闭弹出商品详情页
+       */
+      closeFoodDetail () {
+        this.isShowFood = false
+      },
+      /**
+       * 显示food详细内容,例如配料，轮播图
+       * @param  food 显示的内容
+       */
+      showFoodDetail (food) {
+        this.food = food
+        this.isShowFood = true
+      },
       ...mapActions(['actionShopGoods']),
       //创建左侧滑动组件
       initLeftScroll () {
@@ -129,7 +148,8 @@
       }
     },
     components: {
-      CartControl: () => import('../../../components/CartControl/CartControl')
+      CartControl: () => import('../../../components/CartControl/CartControl'),
+      Food: () => import('../../../components/Food/Food')
     }
   }
 </script>
