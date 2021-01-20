@@ -103,11 +103,12 @@ export default {
     }
   },
   // 异步获取商家评价列表
-  async actionShopRatings ({commit}) {
+  async actionShopRatings ({commit}, fn) {
     const result = await mockGetRatings()
     if (result.code === 0) {
       commit(RECEIVE_RATINGS, {ratings: result.data})
     }
+    fn && fn()
   },
   // 异步获取商家商品列表
   async actionShopGoods ({commit}, fn) {

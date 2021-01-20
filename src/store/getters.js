@@ -20,6 +20,14 @@ export default {
    * @param state
    */
   totalPrice (state) {
-    return state.cartFoods.reduce((total, food) => total + food.count*food.price, 0)
+    return state.cartFoods.reduce((total, food) => total + food.count * food.price, 0)
+  },
+  /**
+   * 计算出评价满意的数量
+   * @param state
+   * @returns {*}
+   */
+  positiveSize (state) {
+    return state.ratings.reduce((preTotal, rating) => preTotal + (rating.rateType === 0 ? 1 : 0), 0)
   }
 }
