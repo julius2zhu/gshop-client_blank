@@ -47,6 +47,8 @@
           </li>
         </ul>
       </div>
+      <!--购物车-->
+      <ShopCart/>
       <!--点击查看详细商品信息-->
       <Food v-if="isShowFood" :food="food" @closeFoodDetail="closeFoodDetail"/>
     </div>
@@ -56,6 +58,7 @@
 <script>
   import {mapState, mapActions} from 'vuex'
   import BScroll from '@better-scroll/core'
+  import Shop from '../Shop'
 
   export default {
     name: 'ShopGoods',
@@ -148,8 +151,10 @@
       }
     },
     components: {
+      Shop,
       CartControl: () => import('../../../components/CartControl/CartControl'),
-      Food: () => import('../../../components/Food/Food')
+      Food: () => import('../../../components/Food/Food'),
+      ShopCart: () => import('../../../components/ShopCart/ShopCart'),
     }
   }
 </script>

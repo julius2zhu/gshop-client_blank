@@ -11,7 +11,8 @@ import {
   RECEIVE_RATINGS,
   RECEIVE_INFO,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART_INFO
 } from './mutation_types'
 
 export default {
@@ -48,6 +49,8 @@ export default {
     //如果没有这个属性则先添加该属性
     if (!food.count) {
       Vue.set(food, 'count', 1)
+      //更新购物车列表信息状态
+      state.cartFoods.push(food)
     } else {
       food.count++
     }
@@ -56,6 +59,17 @@ export default {
     //只有>0才减少
     if (food.count) {
       food.count--
+      //移除该对象
+      if (food.count === 0) {
+        state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
+      }
     }
+  },
+  [CLEAR_CART_INFO] (state) {
+    //错误的做法
+    //state.cartFoods = []
+    /*********************/
+    state.cartFoods.forEach(food => food.count = 0)
+    state.cartFoods = []
   }
 }
