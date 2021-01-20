@@ -87,7 +87,6 @@
         this.$nextTick(() => {
           //不存在才创建
           if (!this.srcoll) {
-            console.log('run')
             this.srcoll = new BScroll('.ratings', {
               click: true
             })
@@ -212,7 +211,7 @@
 
     .split
       width: 100%
-      height: 5px
+      height: 15px
       border-top: 1px solid rgba(7, 17, 27, 0.1)
       border-bottom: 1px solid rgba(7, 17, 27, 0.1)
       background: #f3f5f7

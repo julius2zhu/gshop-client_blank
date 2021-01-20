@@ -96,8 +96,6 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {Dialog} from 'vant'
-
   export default {
     data () {
       return {
@@ -113,7 +111,7 @@
        */
       logout () {
         const that = this
-        Dialog.confirm({
+        this.$dialog.confirm({
           title: '提示',
           message: '确认退出登录吗?',
         }).then(() => {

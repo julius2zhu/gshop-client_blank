@@ -57,3 +57,6 @@ export const mockGetGoods = () => mockJsInstance.get('/goods')
 export const mockGetRatings = () => mockJsInstance.get('/ratings')
 export const mockGetInfo = () => mockJsInstance.get('/info')
 
+/*搜索商铺信息,优先搜索商铺,商铺不存在则搜索商品信息*/
+export const mockGetSearch = () => mockJsInstance.get('/cname')
+

@@ -1,18 +1,28 @@
 <template>
   <section class="search">
-  <HeaderTop  :title="title"/>
-    <form class="search_form" action="#">
-      <input type="search" name="search" placeholder="请输入商家或美食名称" class="search_input">
+    <HeaderTop :title="title"/>
+    <form class="search_form" @submit.prevent="search">
+      <input type="search" v-model="searchInput" name="search" placeholder="请输入商家或美食名称" class="search_input">
       <input type="submit" name="submit" class="search_submit">
     </form>
   </section>
 </template>
-
 <script>
+  import {mockGetSearch} from '../../api/api'
+
   export default {
     data () {
       return {
-        title: '搜索'
+        title: '搜索',
+        searchInput: ''
+      }
+    },
+    methods: {
+      search () {
+        //本地搜索,到mockjs模拟的数据中进行搜索
+        mockGetSearch().then(resp => {
+          console.log(resp)
+        })
       }
     },
     components: {
@@ -22,7 +32,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .search //搜索
+  .search
     width 100%
 
     .header

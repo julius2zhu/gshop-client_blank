@@ -46,7 +46,6 @@
 </template>
 
 <script>
-  import {Dialog} from 'vant'
   import {mapState, mapGetters} from 'vuex'
   import BScroll from '@better-scroll/core'
 
@@ -91,13 +90,13 @@
        * 去付款
        */
       pay () {
-        Dialog({message: '该功能暂未开放'})
+        this.$dialog.alert({message: '该功能暂未开放'})
       },
       /**
        * 清空购物车
        */
       clearCart () {
-        Dialog.confirm({
+        this.$dialog.confirm({
           title: '提示',
           message: '确认清空购物车吗?此操作将不可恢复',
         }).then(() => {

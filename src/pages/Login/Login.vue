@@ -61,8 +61,6 @@
 </template>
 
 <script>
-  import Dialog from 'vant/lib/Dialog'
-  import 'vant/lib/dialog/style'
   import {loginByUsername} from '../../api/api'
 
   export default {
@@ -125,20 +123,20 @@
           const {rightButton, phone, code} = this
           //校验手机号
           if (!rightButton) {
-            Dialog({message: '手机号输入不正确'})
+            this.$dialog.alert({message: '手机号输入不正确'})
             //校验验证码,必须是6位数字
           } else if (!/^\d{6}$/.test(code)) {
-            Dialog({message: '验证码必须是6位数字'})
+            this.$dialog.alert({message: '验证码必须是6位数字'})
           }
           //账号密码登录
         } else {
           const {name, pwd, captcha} = this
           if (name.length < 1) {
-            Dialog({message: '用户名必须指定'})
+            this.$dialog.alert({message: '用户名必须指定'})
           } else if (pwd.length < 1) {
-            Dialog({message: '密码必须指定'})
+            this.$dialog.alert({message: '密码必须指定'})
           } else if (captcha.length < 1) {
-            Dialog({message: '验证码必须输入'})
+            this.$dialog.alert({message: '验证码必须输入'})
           } else {
             //调用登录请求
             this.loginByUsername()
@@ -159,8 +157,8 @@
           await this.$router.replace('/profile')
         } else {
           //重新获取验证码
-          this.getCaptcha()
-          Dialog({message: result.msg})
+          await this.getCaptcha()
+          await this.$dialog.alert({message: result.msg})
         }
       }
     }
