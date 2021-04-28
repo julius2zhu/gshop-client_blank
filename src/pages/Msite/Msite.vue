@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
     <!--首页头部-->
-    <HeaderTop :title="address.name">
+    <HeaderTop :title="address">
       <router-link class="header_search" slot="left" to="/search">
         <i class="iconfont icon-sousuo"></i>
       </router-link>
@@ -19,7 +19,7 @@
           <div class="swiper-slide" v-for="(categories ,index) in categoriesArr" :key="index">
             <a href="javascript:" class="link_to_food" v-for="(category,index) in categories" :key="index">
               <div class="food_container">
-                <img src="./images/nav/1.jpg">
+                <img :src="baseImageUrl+category.image_url">
               </div>
               <span>{{category.title}}</span>
             </a>
@@ -47,6 +47,7 @@
     data () {
       return {
         // title: '昌平区北七家宏福科技园(337省道北)'
+        baseImageUrl: 'https://fuss10.elemecdn.com'
       }
     },
     computed: {

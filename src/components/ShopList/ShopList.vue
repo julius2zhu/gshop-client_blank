@@ -6,7 +6,7 @@
           @click="$router.push('/shop')">
         <a>
           <div class="shop_left">
-            <img class="shop_img" src="./images/shop/1.jpg" alt="">
+            <img class="shop_img" src="./images/shop/1.png" alt="">
           </div>
           <div class="shop_right">
             <section class="shop_detail_header">
