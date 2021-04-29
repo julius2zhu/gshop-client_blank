@@ -9,11 +9,11 @@ import store from './store/index'
 //引入mockjs数据，只需要加载一次即可，例如一些css样式文件
 import './mock/mockServer'
 //按需引入
-import {Dialog,Button} from 'vant'
+import {Dialog, Button, Icon} from 'vant'
 import 'vant/lib/dialog/style'
 
-Vue.use(Dialog)
-Vue.use(Button)
+[Dialog, Button, Icon]
+  .forEach(item => Vue.use(item))
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

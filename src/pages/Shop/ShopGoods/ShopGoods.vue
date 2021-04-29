@@ -132,7 +132,8 @@
       initRightScroll () {
         this.rightScroll = new BScroll('.foods-wrapper', {
           //设置响应级别,0 1 2 3
-          probeType: 2
+          probeType: 2,
+          click: true
         })
         this.rightScroll.on('scroll', (position) => {
           this.scrollY = Math.abs(position.y)
