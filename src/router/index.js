@@ -36,6 +36,14 @@ const routes = [
     component: () => import('../pages/Profile/Profile')
   },
   {
+    path: '/userinfo',
+    name: 'Userinfo',
+    meta: {
+      temp: '用户个人信息'
+    },
+    component: () => import('../pages/UserInfo/UserInfoIndex')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../pages/Login/Login')

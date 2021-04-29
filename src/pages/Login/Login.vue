@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import {loginByUsername} from '../../api/api'
+
+import {getUser, saveUser} from '../../utils/storageUtil'
 
 export default {
   name: 'Login',
@@ -150,21 +151,40 @@ export default {
     async loginByUsername () {
       const {name, pwd, captcha_code, captcha} = this
       if (!(captcha.toUpperCase() === captcha_code.toUpperCase())) {
+        this.nextCode()
         this.$dialog.alert({message: '验证码输入不一致，请检查!'})
         return
       }
-      const result = await loginByUsername({name, pwd, captcha_code})
-      if (result.code === 0) {
-        const user = result.data
-        //将数据保存到vuex中
-        await this.$store.dispatch('actionUserInfo', user)
-        //去个人中心
-        await this.$router.replace('/profile')
+      //获取本地已经存在的用户信息
+      const users = getUser()
+      //找到返回该数组,没有找到返回undefined
+      const user = users.find(item => item.name === name)
+      //没有找到,直接注册并且登录
+      if (!user) {
+        users.push({name, pwd})
+        //本地化存储
+        saveUser(users)
       } else {
-        //重新获取验证码
-        await this.getCaptcha()
-        await this.$dialog.alert({message: result.msg})
+        //进行登录校验
+        const result = users.find(item => item.name === name && item.pwd === pwd)
+        if (!result) {
+          this.$dialog.alert({message: '用户名或者密码错误,请检查!'})
+          return
+        }
       }
+      await this.$store.dispatch('actionUserInfo', {name, pwd, _id: 111})
+      await this.$router.replace('/profile')
+      // if (result.code === 0) {
+      //   const user = result.data
+      //   //将数据保存到vuex中
+      //   await this.$store.dispatch('actionUserInfo', user)
+      //   //去个人中心
+      //   await this.$router.replace('/profile')
+      // } else {
+      //   //重新获取验证码
+      //   await this.getCaptcha()
+      //   await this.$dialog.alert({message: result.msg})
+      // }
     },
     /**
      * 生成随机验证码

@@ -88,10 +88,7 @@ export default {
    * @returns {Promise<void>}
    */
   async actionRestCurrentUserInfo ({commit, state}) {
-    const result = await logout()
-    if (result.code === 0) {
       commit(RESET_USER_INFO)
-    }
   },
   // 异步获取商家头部信息
   async actionShopInfo ({commit}) {
